@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prenotazione Stabilimento Balneare</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        h1, h2 { color: #0056b3; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin: 5px 0; }
+        button:hover { background-color: #0056b3; }
+        input[type="number"], input[type="text"] { padding: 8px; margin: 5px 0 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        hr { margin: 20px 0; }
+        #spotsContainer { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; min-height: 400px; }
+        .spot { padding: 15px; border: 1px solid #ccc; border-radius: 5px; width: 80px; height: 40px; display:flex; justify-content:center; align-items:center; text-align: center; cursor: pointer; font-size: 0.9em;}
+        .spot.free { background-color: #c8e6c9; /* Verde chiaro per libero */ }
+        .spot.booked { background-color: #ffcdd2; /* Rosso chiaro per occupato */ }
+        .spot.selected { border-color: #007bff; border-width: 3px; box-shadow: 0 0 5px #007bff;}
+        p { margin: 8px 0; }
+        #statusMessage { font-weight: bold; min-height: 1.2em; /* per evitare salti di layout */}
+        #userAddress, #networkName, #contractOwner, #totalSpots { font-weight: bold; }
+        .hidden { display: none !important; } /* Per nascondere elementi inizialmente */
+        #loadingMessage { margin-top:15px; font-style: italic; color: #555; }
+        #walletInfo, #dappInterface { padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #fff; margin-top:15px;}
+    </style>
+</head>
+
+<body>
+    <h1>Prenotazioni Stabilimento Balneare DApp</h1>
+
+    <button id="connectWalletBtn">Connetti Wallet MetaMask</button>
+    
+    <div id="walletInfo" class="hidden">
+        <h2>Info Connessione</h2>
+        <p>Account connesso: <span id="userAddress">Nessuno</span></p>
+        <p>Rete: <span id="networkName">Nessuna</span></p>
+        <p>Proprietario Contratto: <span id="contractOwner">N/D</span></p>
+        <p>Numero Postazioni Totali: <span id="totalSpots">N/D</span></p>
+    </div>
+    <!-- Widget Meteo -->
+    <div id="weatherWidget" class="hidden" style="background-color: #e3f2fd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+        <h2 style="margin-top: 0;">Meteo Attuale</h2>
+        <div style="display: flex; align-items: center;">
+            <div id="weatherIcon" style="font-size: 2.5em; margin-right: 20px;">☀️</div>
+            <div>
+                <p>Temperatura: <strong id="temp">--</strong> °C</p>
+                <p>Umidità: <strong id="humidity">--</strong> %</p>
+            </div>
+        </div>
+        <p id="weather-warning" style="color: red; font-weight: bold; margin-top: 10px;"></p>
+    </div>
+    <hr>
+    <hr class="hidden" id="mainSeparator"> 
+
+    <div id="dappInterface" class="hidden">
+        <h2>Seleziona una Data</h2>
+        <input type="date" id="mainDateInput">
+        <button id="displaySpotsBtn">Mostra Postazioni</button>
+        <hr>
+        
+        <div id="spotsContainer"></div>
+        
+        <div id="actionsPanel" style="margin-top: 20px;">
+            <h3>Azioni per Postazione</h3>
+            <label for="spotIdInput">ID Selezionato:</label>
+            <input type="number" id="spotIdInput" readonly style="background-color: #eee;">
+            <br><br>
+            <button id="checkAvailabilityBtn">Verifica Disponibilità</button>
+            <button id="bookSpotBtn">Prenota</button>
+            <button id="cancelBookingBtn">Cancella</button>
+            <p id="statusMessage"></p>
+        </div>
+    </div> 
+
+    <p id="loadingMessage"></p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
