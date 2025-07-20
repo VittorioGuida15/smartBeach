@@ -457,10 +457,10 @@ async function fetchWeather() {
         const conditionsAdverse = isRaining || isCold;
         const isToday = mainDateInput.value === new Date().toISOString().split('T')[0];
 
-        if (conditionsAdverse && isToday) {
+        if (conditionsAdverse) {
             document.getElementById('weatherIcon').textContent = isRaining ? '🌧️' : '🥶';
             document.getElementById('weather-warning').textContent = "Meteo avverso: Prenotazioni per oggi sospese.";
-            canBookToday = false;
+            if(isToday) canBookToday = false;
         } else {
             document.getElementById('weatherIcon').textContent = '☀️';
             document.getElementById('weather-warning').textContent = "";
