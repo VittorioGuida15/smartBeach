@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 contract StabilimentoBalneare {
     uint public numeroTotalePostazioni;
     address public proprietario;
+    uint256 public prezzoPostazione = 0.01 ether;
 
     // Mapping: idPostazione -> data (timestamp Unix) -> indirizzo utente
     // Se l'indirizzo è address(0), la postazione è libera per quella data.
@@ -23,7 +24,8 @@ contract StabilimentoBalneare {
         proprietario = msg.sender; // Il deployer del contratto è il proprietario
     }
 
-    function prenotaPostazione(uint _idPostazione, uint _data) public {
+    function prenotaPostazione(uint _idPostazione, uint _data) public payable {
+    require(msg.value >= prezzoPostazione, "Pagamento insufficiente");
     require(_idPostazione > 0 && _idPostazione <= numeroTotalePostazioni, "ID postazione non valido");
     
     //Arrotonda il timestamp attuale alla mezzanotte di oggi

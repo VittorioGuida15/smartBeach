@@ -1,219 +1,232 @@
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const contractABI = [ {
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_numeroTotalePostazioni",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "idPostazione",
-				"type": "uint256"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "data",
-				"type": "uint256"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "utente",
-				"type": "address"
-			}
-		],
-		"name": "PostazionePrenotata",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "idPostazione",
-				"type": "uint256"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "data",
-				"type": "uint256"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "utente",
-				"type": "address"
-			}
-		],
-		"name": "PrenotazioneCancellata",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idPostazione",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_data",
-				"type": "uint256"
-			}
-		],
-		"name": "cancellaPrenotazione",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idPostazione",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_data",
-				"type": "uint256"
-			}
-		],
-		"name": "getPrenotazioneUtente",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "numeroTotalePostazioni",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "postazioniPrenotate",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idPostazione",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_data",
-				"type": "uint256"
-			}
-		],
-		"name": "prenotaPostazione",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "proprietario",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "ritiraFondi",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_nuovoNumero",
-				"type": "uint256"
-			}
-		],
-		"name": "setNumeroTotalePostazioni",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idPostazione",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_data",
-				"type": "uint256"
-			}
-		],
-		"name": "verificaDisponibilita",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}];
+const contractABI = [{
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_numeroTotalePostazioni",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "idPostazione",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "data",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "utente",
+          "type": "address"
+        }
+      ],
+      "name": "PostazionePrenotata",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "idPostazione",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "data",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "utente",
+          "type": "address"
+        }
+      ],
+      "name": "PrenotazioneCancellata",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_idPostazione",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancellaPrenotazione",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_idPostazione",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPrenotazioneUtente",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "numeroTotalePostazioni",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "postazioniPrenotate",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_idPostazione",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "prenotaPostazione",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "prezzoPostazione",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "proprietario",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ritiraFondi",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_nuovoNumero",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNumeroTotalePostazioni",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_idPostazione",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "verificaDisponibilita",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }];
 
 let provider, signer, contract;
 let selectedSpot = null; // Variabile per memorizzare lo spot cliccato
@@ -236,6 +249,7 @@ const bookSpotBtn = document.getElementById('bookSpotBtn');
 const cancelBookingBtn = document.getElementById('cancelBookingBtn');
 const statusMessageEl = document.getElementById('statusMessage');
 const loadingMessageEl = document.getElementById('loadingMessage');
+const bookingPriceSpan = document.getElementById('bookingPrice');
 
 //Funzione covertitore data Unix
 function dateToTimestamp(dateString) {
@@ -330,7 +344,10 @@ async function loadInitialContractData() {
         if (contractOwnerEl) contractOwnerEl.innerText = owner;
         const numPostazioni = await contract.numeroTotalePostazioni();
         if (totalSpotsEl) totalSpotsEl.innerText = numPostazioni.toString();
-        const oggi = new Date();
+        const prezzoInWei = await contract.prezzoPostazione();
+        const prezzoInEth = ethers.utils.formatEther(prezzoInWei);
+        if (bookingPriceSpan) bookingPriceSpan.textContent = prezzoInEth;
+		const oggi = new Date();
         if (mainDateInput) mainDateInput.value = oggi.toISOString().split('T')[0];
         await handleDisplaySpots();
         showStatusMessage("Dati iniziali caricati.", false);
@@ -407,7 +424,7 @@ async function handleCheckAvailability() {
 
 //prenota
 async function handleBookSpot() {
-    if (!selectedSpot) return alert("Seleziona una postazione dalla griglia.");
+    if (!selectedSpot) return alert("Seleziona una postazione.");
     
     const canBook = await fetchWeather();
     if (!canBook) {
@@ -416,16 +433,22 @@ async function handleBookSpot() {
 
     const { id, date } = selectedSpot;
     try {
-        showStatusMessage("Invio prenotazione...", false);
-        const tx = await contract.prenotaPostazione(id, date);
+        // ottieni il prezzo
+        const prezzoInWei = await contract.prezzoPostazione();
+        
+        showStatusMessage("Invio prenotazione e pagamento...", false);
+
+        // invia la transazione CON IL PAGAMENTO
+        const tx = await contract.prenotaPostazione(id, date, { value: prezzoInWei }); // <-- MODIFICA CHIAVE QUI
+
         await tx.wait();
         showStatusMessage("Prenotazione effettuata!", false);
-        await handleDisplaySpots(); // Ricarica la griglia
+        await handleDisplaySpots();
     } catch (error) {
+        console.error("Errore prenotazione:", error);
         showStatusMessage(`Errore: ${error.reason || "Transazione fallita."}`, true);
     }
 }
-
 //cancella la prenotazione
 async function handleCancelBooking() {
     if (!selectedSpot) return alert("Seleziona una postazione dalla griglia.");
