@@ -1,4 +1,4 @@
-const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 const contractABI = [{
       "inputs": [
         {
@@ -64,6 +64,19 @@ const contractABI = [{
       "inputs": [
         {
           "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "abilitaRimborsiPerMaltempo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
           "name": "_idPostazione",
           "type": "uint256"
         },
@@ -73,7 +86,38 @@ const contractABI = [{
           "type": "uint256"
         }
       ],
-      "name": "cancellaPrenotazione",
+      "name": "cancellaConRimborsoPerMaltempo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_idPostazione",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancellaSenzaRimborso",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_data",
+          "type": "uint256"
+        }
+      ],
+      "name": "disabilitaRimborsiPerMaltempo",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -97,6 +141,25 @@ const contractABI = [{
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "maltempoAbilitato",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -451,16 +514,43 @@ async function handleBookSpot() {
 }
 //cancella la prenotazione
 async function handleCancelBooking() {
-    if (!selectedSpot) return alert("Seleziona una postazione dalla griglia.");
+    if (!selectedSpot) return alert("Seleziona una postazione.");
 
     const { id, date } = selectedSpot;
+    const isTodaySelected = mainDateInput.value === new Date().toISOString().split('T')[0];
+
+    console.log(`Tentativo di cancellazione per data ${date}. È oggi? ${isTodaySelected}`);
+
     try {
-        showStatusMessage("Invio cancellazione...", false);
-        const tx = await contract.cancellaPrenotazione(id, date);
-        await tx.wait();
-        showStatusMessage("Cancellazione effettuata!", false);
-        await handleDisplaySpots(); // Ricarica la griglia
+        let rimborsiAbilitati = false;
+        if (isTodaySelected) {
+            // Chiediamo allo smart contract solo se stiamo operando su oggi
+            rimborsiAbilitati = await contract.maltempoAbilitato(date);
+            console.log(`I rimborsi per oggi sono abilitati? ${rimborsiAbilitati}`);
+        }
+
+        if (rimborsiAbilitati) {
+            // Caso 1: È oggi E c'è maltempo
+            console.log("Percorso: Cancellazione CON rimborso.");
+            if (confirm("Meteo avverso! Vuoi cancellare e ricevere un rimborso?")) {
+                const tx = await contract.cancellaConRimborsoPerMaltempo(id, date);
+                await tx.wait();
+                showStatusMessage("Cancellata con rimborso!", false);
+            } else { return; } // L'utente ha annullato
+        } else {
+            // Caso 2: È un altro giorno, OPPURE è oggi ma con bel tempo
+            console.log("Percorso: Cancellazione SENZA rimborso.");
+            if (confirm("Sei sicuro di voler cancellare? L'importo NON verrà rimborsato.")) {
+                const tx = await contract.cancellaSenzaRimborso(id, date);
+                await tx.wait();
+                showStatusMessage("Cancellata senza rimborso.", false);
+            } else { return; } // L'utente ha annullato
+        }
+        
+        await handleDisplaySpots();
+
     } catch (error) {
+        console.error("Errore durante la cancellazione:", error);
         showStatusMessage(`Errore: ${error.reason || "Transazione fallita."}`, true);
     }
 }
