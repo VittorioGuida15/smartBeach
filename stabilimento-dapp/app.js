@@ -86,25 +86,7 @@ const contractABI = [{
           "type": "uint256"
         }
       ],
-      "name": "cancellaConRimborsoPerMaltempo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_idPostazione",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_data",
-          "type": "uint256"
-        }
-      ],
-      "name": "cancellaSenzaRimborso",
+      "name": "cancellaPrenotazione",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -427,9 +409,6 @@ async function handleDisplaySpots() {
     const date = dateToTimestamp(dateString);
     if (!date) return;
 
-    //actionsPanel.style.display = 'none';
-    //selectedSpot = null;
-
     // Resetta il pannello delle azioni a uno stato iniziale
     if (spotIdInput) spotIdInput.value = '';
     if (bookSpotBtn) bookSpotBtn.disabled = true;
@@ -457,7 +436,6 @@ async function handleDisplaySpots() {
 function onSpotClick(id, date, isAvailable) {
     selectedSpot = { id, date, available: isAvailable };
     if (spotIdInput) spotIdInput.value = id;
-    //if (actionsPanel) actionsPanel.style.display = 'block';
   
     if (checkAvailabilityBtn) checkAvailabilityBtn.disabled = false;
     if (bookSpotBtn) bookSpotBtn.disabled = false;
@@ -512,45 +490,35 @@ async function handleBookSpot() {
         showStatusMessage(`Errore: ${error.reason || "Transazione fallita."}`, true);
     }
 }
-//cancella la prenotazione
 async function handleCancelBooking() {
     if (!selectedSpot) return alert("Seleziona una postazione.");
 
     const { id, date } = selectedSpot;
-    const isTodaySelected = mainDateInput.value === new Date().toISOString().split('T')[0];
-
-    console.log(`Tentativo di cancellazione per data ${date}. È oggi? ${isTodaySelected}`);
 
     try {
-        let rimborsiAbilitati = false;
-        if (isTodaySelected) {
-            // Chiediamo allo smart contract solo se stiamo operando su oggi
-            rimborsiAbilitati = await contract.maltempoAbilitato(date);
-            console.log(`I rimborsi per oggi sono abilitati? ${rimborsiAbilitati}`);
+        // rimbori attivi?
+        const isTodaySelected = mainDateInput.value === new Date().toISOString().split('T')[0];
+        const rimborsiAbilitati = isTodaySelected ? await contract.maltempoAbilitato(date) : false;
+        
+        let userConfirmation = false;
+
+        // popup da mostrare
+        if (rimborsiAbilitati) {
+            userConfirmation = confirm("Meteo avverso! Vuoi cancellare e ricevere un rimborso?");
+        } else {
+            userConfirmation = confirm("Sei sicuro di voler cancellare? L'importo NON verrà rimborsato.");
         }
 
-        if (rimborsiAbilitati) {
-            // Caso 1: È oggi E c'è maltempo
-            console.log("Percorso: Cancellazione CON rimborso.");
-            if (confirm("Meteo avverso! Vuoi cancellare e ricevere un rimborso?")) {
-                const tx = await contract.cancellaConRimborsoPerMaltempo(id, date);
-                await tx.wait();
-                showStatusMessage("Cancellata con rimborso!", false);
-            } else { return; } // L'utente ha annullato
-        } else {
-            // Caso 2: È un altro giorno, OPPURE è oggi ma con bel tempo
-            console.log("Percorso: Cancellazione SENZA rimborso.");
-            if (confirm("Sei sicuro di voler cancellare? L'importo NON verrà rimborsato.")) {
-                const tx = await contract.cancellaSenzaRimborso(id, date);
-                await tx.wait();
-                showStatusMessage("Cancellata senza rimborso.", false);
-            } else { return; } // L'utente ha annullato
+        // Se l'utente clicca "OK"
+        if (userConfirmation) {
+            showStatusMessage("Invio cancellazione...", false);
+            const tx = await contract.cancellaPrenotazione(id, date);
+            await tx.wait();
+            showStatusMessage("Cancellazione effettuata!", false);
+            await handleDisplaySpots();
         }
-        
-        await handleDisplaySpots();
 
     } catch (error) {
-        console.error("Errore durante la cancellazione:", error);
         showStatusMessage(`Errore: ${error.reason || "Transazione fallita."}`, true);
     }
 }

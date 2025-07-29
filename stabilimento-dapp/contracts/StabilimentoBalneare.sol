@@ -49,29 +49,20 @@ contract StabilimentoBalneare {
     emit PostazionePrenotata(_idPostazione, _data, msg.sender);
 }
 
-    function cancellaSenzaRimborso(uint _idPostazione, uint _data) public {
-        require(_idPostazione > 0 && _idPostazione <= numeroTotalePostazioni, "ID postazione non valido");
-        address utentePrenotato = postazioniPrenotate[_idPostazione][_data];
-        require(utentePrenotato != address(0), "Nessuna prenotazione trovata per questa postazione/data");
-        require(msg.sender == utentePrenotato || msg.sender == proprietario, "Solo l'utente prenotato o il proprietario possono cancellare");
-
-        postazioniPrenotate[_idPostazione][_data] = address(0); // Rende la postazione di nuovo libera
-        emit PrenotazioneCancellata(_idPostazione, _data, utentePrenotato);
-    }
-
-    function cancellaConRimborsoPerMaltempo(uint _idPostazione, uint _data) public {
-    uint oggi = (block.timestamp / 86400) * 86400;
-    require(_data == oggi, "Rimborso valido solo per oggi");
-    require(maltempoAbilitato[_data] == true, "Rimborsi non abilitati");
-    
+    function cancellaPrenotazione(uint _idPostazione, uint _data) public {
     address utente = postazioniPrenotate[_idPostazione][_data];
-    require(utente == msg.sender, "Non sei il proprietario di questa prenotazione");
+    require(utente != address(0), "Nessuna prenotazione trovata");
+    require(msg.sender == utente || msg.sender == proprietario, "Azione non autorizzata");
 
     postazioniPrenotate[_idPostazione][_data] = address(0);
     emit PrenotazioneCancellata(_idPostazione, _data, utente);
 
-    payable(msg.sender).transfer(prezzoPostazione);
+    // Logica di rimborso automatica e sicura
+    uint oggi = (block.timestamp / 86400) * 86400;
+    if (_data == oggi && maltempoAbilitato[_data] == true) {
+        payable(utente).transfer(prezzoPostazione);
     }
+}
 
     function verificaDisponibilita(uint _idPostazione, uint _data) public view returns (bool) {
         require(_idPostazione > 0 && _idPostazione <= numeroTotalePostazioni, "ID postazione non valido");

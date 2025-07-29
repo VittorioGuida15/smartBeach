@@ -96,25 +96,7 @@ const port = 3001;
           "type": "uint256"
         }
       ],
-      "name": "cancellaConRimborsoPerMaltempo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_idPostazione",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_data",
-          "type": "uint256"
-        }
-      ],
-      "name": "cancellaSenzaRimborso",
+      "name": "cancellaPrenotazione",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
