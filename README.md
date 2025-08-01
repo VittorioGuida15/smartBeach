@@ -1,12 +1,19 @@
-Terminale 1:
-> npx hardhat node
-(cose da installare: npm install e node.js)
+**Terminale 1:**
+  > cd .\smartBeach\stabilimento-dapp\
+  > npx hardhat node
 
-Terminale 2:
-> npx hardhat run scripts/deploy.js --network localhost
+  cose da installare: npm install e node.js
+  > npm install --save-dev hardhat
 
-> npx serve
+**Terminale 2:**
+  > cd .\smartBeach\stabilimento-dapp\
+  > npx hardhat run scripts/deploy.js --network localhost
+  > npx serve
 
-Terminale 3:
-> node server.js
-(Cose da installare: install express e node.js)
+**Terminale 3:**
+  > .\smartBeach\smartWeatherNode\
+  > node server.js
+
+  cose da installare: install express e node.js
+  > npm init -y
+  > npm install express
