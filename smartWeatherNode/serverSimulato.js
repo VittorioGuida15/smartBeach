@@ -1,13 +1,11 @@
 // Imports
 const express = require('express');
 const cors = require('cors');
-const mqtt = require('mqtt');
 const { ethers } = require("ethers");
 
 // configurazione server express
 const app = express();
-const PORT = 3001;
-app.use(cors());
+const port = 3001;
 
 // Configurazione Blockchain
  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
@@ -291,69 +289,50 @@ app.use(cors());
  const ownerWallet = new ethers.Wallet(ownerPrivateKey, provider);
  const stabilimentoContract = new ethers.Contract(contractAddress, contractABI, ownerWallet);
 
-// Gestione dati di default meteo
-let lastWeatherData = { temperature: 25, humidity: 60, rain: 0 };
+ 
 
-// Logica blockchain
-async function handleBlockchainInteraction(weatherData) {
-    const conditionsAdverse = weatherData.rain === 1 || weatherData.temperature < 16;
+app.use(cors());
+
+let simulatedWeather = { temperature: 25, humidity: 60, rain: 0 }; // 0 = no pioggia, 1 = pioggia
+
+// Endpoint che restituisce i dati meteo
+app.get('/meteo', (req, res) => res.json(simulatedWeather));
+
+// Endpoint per cambiare il meteo per i test (es. /set-meteo?rain=1)
+app.get('/set-meteo', async (req, res) => { // Aggiunto 'async'
+    const { temp, humidity, rain } = req.query;
+    if (temp) simulatedWeather.temperature = parseFloat(temp);
+    if (humidity) simulatedWeather.humidity = parseFloat(humidity);
+    if (rain) simulatedWeather.rain = parseInt(rain);
+
+    console.log("Meteo simulato aggiornato:", simulatedWeather);
+
+    //  LOGICA BLOCKCHAIN 
+    const conditionsAdverse = simulatedWeather.rain === 1 || simulatedWeather.temperature < 16;
     const oggi = new Date();
-    oggi.setUTCHours(0, 0, 0, 0); // Azzera l'orario per ottenere il timestamp della mezzanotte UTC
+    oggi.setUTCHours(0, 0, 0, 0);
     const timestampOggi = Math.floor(oggi.getTime() / 1000);
     
     try {
-      const maltempoAttivo = await stabilimentoContract.maltempoAbilitato(timestampOggi);
-      if (conditionsAdverse && !maltempoAttivo) {
-        console.log(`Condizioni avverse rilevate. Abilito rimborsi per oggi (timestamp: ${timestampOggi})...`);
+      if(conditionsAdverse) {
+        console.log(`Maltempo rilevato. Abilito rimborsi per oggi (timestamp: ${timestampOggi})...`);
         const tx = await stabilimentoContract.abilitaRimborsiPerMaltempo(timestampOggi);
         await tx.wait();
-        console.log("Rimborsi abilitati con successo!");
-      } else if (!conditionsAdverse && maltempoAttivo) {
-        console.log(`Bel tempo rilevato. Disabilito rimborsi per oggi (timestamp: ${timestampOggi})...`);
-        const tx = await stabilimentoContract.disabilitaRimborsiPerMaltempo(timestampOggi);
-        await tx.wait();
-        console.log("Rimborsi disabilitati con successo!");
-      } else {
-        console.log("Lo stato sulla blockchain è già allineato con il meteo attuale. Nessuna azione necessaria.");
-      }
-    } catch (error) {
-      console.error("Errore durante l'interazione con lo smart contract:", error.reason || error.message);
-    }
-}
-
-// Logica MQTT 
-const mqttClient = mqtt.connect('mqtt://broker.hivemq.com');
-
-mqttClient.on('connect', () => {
-    console.log('[MQTT] Connesso al broker MQTT.');
-    const topic = 'smartbeach/weather';
-    mqttClient.subscribe(topic, (err) => {
-        if (!err) console.log(`[MQTT] Sottoscrizione al topic "${topic}" avvenuta.`);
-        else console.error('[MQTT] Errore di sottoscrizione:', err);
-    });
-});
-
-mqttClient.on('message', (topic, message) => {
-    console.log(`[MQTT] Messaggio ricevuto: ${message.toString()}`);
-    try {
-        const data = JSON.parse(message.toString());
-        if (data.temperature !== undefined && data.humidity !== undefined && data.rain !== undefined) {
-            lastWeatherData = data;
-            console.log('[MQTT] Dati meteo aggiornati:', lastWeatherData);
-            // Dopo aver aggiornato i dati, interagisci con la blockchain
-            handleBlockchainInteraction(lastWeatherData);
+          console.log("Rimborsi abilitati con successo sulla blockchain!");
         } else {
-            console.warn('[MQTT] Messaggio JSON non valido.');
+          console.log("Bel tempo: Disabilito rimborsi...");
+          const tx = await stabilimentoContract.disabilitaRimborsiPerMaltempo(timestampOggi);
+          await tx.wait();
+          console.log("Rimborsi disabilitati con successo sulla blockchain!");
         }
-    } catch (e) {
-        console.error('[MQTT] Errore parsing messaggio:', e);
+    } catch (error) {
+      console.error("Errore durante l'abilitazione dei rimborsi:", error.reason);
     }
+
+    res.send('Meteo simulato aggiornato!');
 });
 
-// API e avvio server
-app.get('/meteo', (req, res) => res.json(lastWeatherData));
 
-app.listen(PORT, () => {
-    console.log(`--- Server SmartBeach attivo su http://localhost:${PORT} ---`);
-    console.log('In ascolto dei dati meteo dall\'ESP32 e connesso alla blockchain.');
+app.listen(port, () => {
+    console.log(`--- Server Meteo SIMULATO attivo su http://localhost:${port} ---`);
 });
