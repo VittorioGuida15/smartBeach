@@ -14,7 +14,7 @@
   > npx serve
 
 **Terminale 3:**
-  > .\smartBeach\smartWeatherNode\
+  > cd .\smartBeach\smartWeatherNode\
   
   > node server.js
 
@@ -22,3 +22,8 @@
   > npm init -y
   
   > npm install express
+
+**Per collegamento meteo:**
+  > cd .\smartBeach\smartWeatherNode\
+  
+  > npm install mqtt.
