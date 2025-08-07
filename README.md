@@ -65,6 +65,7 @@ Installa le dipendenze per il server meteo.
 cd smartBeach/smartWeatherNode
 npm install
 ```
+
 ## 🚀 Avvio del Progetto
 Per avviare il progetto, avrai bisogno di tre terminali separati.
 
@@ -107,14 +108,14 @@ La DApp sarà ora disponibile all'indirizzo http://localhost:3000.
 **💻 Terminale 3: Server Meteo**
 
 Questo terminale, avvia il server meteo, scegliendo una delle due opzioni disponibili:
-- Opzione 1: Meteo Reale (con ESP32)
-    Utilizza questa opzione se hai un ESP32 connesso che invia i dati.
+- Opzione 1: Meteo Reale 
+    - Requisiti hardware: ESP32 con sensore DHT22 (temperatura e umidità) e sensore di pioggia.
     ```
     cd smartBeach/smartWeatherNode
     node server.js
     ```
-- Opzione 2: Simulazione del Meteo (senza ESP32)
-    Senza il sensore, avvia il server di simulazione.
+- Opzione 2: Simulazione del Meteo
+    Senza il ESP32, avvia il server di simulazione.
     ```
     cd smartBeach/smartWeatherNode
     node serverSimulato.js
