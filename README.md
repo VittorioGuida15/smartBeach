@@ -14,14 +14,37 @@
 - Interfaccia frontend con HTML/JavaScript
 
 ## 📁 Struttura del progetto
+```
 smartBeach/
-├── stabilimento-dapp/ → DApp
-│ ├── artefact/
-│ ├── cache
-│ ├── contracts/ → smart contract
-│ ├── scripts/
-│ ├── frontend/ → HTML + JS + interfaccia utente
-│ └── hardhat.config.js
-├── smartWeatherNode/ → Server meteo MQTT (ESP32 o simulazione)
-│ ├── server.js → Versione reale con sensori
-│ ├── serverSimulato.js → Simulatore meteo via HTTP
+├── .gitignore                  → Per ignorare file e cartelle nel progetto
+├── README.md                   → Documentazione del progetto
+│
+│
+├── stabilimento-dapp/          → Contiene la DApp, lo smart contract e il server frontend
+│   ├── contracts/              
+│   │   └── SmartBeach.sol      → Smart contract
+│   │
+│   ├── ignition/modules/       → Moduli di deployment di Hardhat
+│   │
+│   ├── scripts/                
+│   │   └── deploy.js           → Script per il deployment del contratto
+│   │
+│   ├── test/                   → Script di test per lo smart contract
+│   │
+│   ├── app.js                  → Server Node.js che gestisce e serve la DApp frontend
+│   ├── hardhat.config.js       → File di configurazione di Hardhat
+│   ├── index.html              → Pagina HTML principale della DApp (frontend)
+│   ├── package.json            → Dipendenze del progetto (Hardhat, Node.js)
+│   └── package-lock.json       → File di lock delle dipendenze (assicura la coerenza delle dipendenze)
+│  
+│   
+└── smartWeatherNode/           → Server Node.js per la gestione dei dati meteo
+    ├── main/ 
+    │     ├── main.ino          → Codice dell'ESP32
+    │     └── secret.exemple.h  → File esempio per configurazione Wi-Fi ESP32 
+    │ 
+    ├── package-lock.json       → File di lock delle dipendenze
+    ├── package.json            → Dipendenze del server meteo (Express, MQTT)
+    ├── server.js               → Server che riceve i dati meteo reali da ESP32 (via MQTT)
+    └── serverSimulato.js       → Server che simula i dati meteo
+```
