@@ -77,7 +77,7 @@ npx hardhat node
 ```
 La rete locale Hardhad va aggiunta a MetaMask.
 
-Inoltre saranno mostrati 20 account con 10000 ETH e relativa chiave privata da poter aggiungere a MetaMask per testare la dApp.
+Inoltre saranno mostrati 20 account con 10000 ETH e relativa *Private Key* da poter aggiungere a MetaMask per testare la dApp.
 
 - **Per aggiungere la rete Hardhat a MetaMask:**
 
@@ -91,7 +91,7 @@ Inoltre saranno mostrati 20 account con 10000 ETH e relativa chiave privata da p
 - **Per aggiungere gli account a MetaMask:**
 
   *Account* > *Add account or hardware wallet* > *Private Key*
-    - Incollare la Private Key di uno degli account ottenuti precedentemente sul terminele.
+    - Incollare la *Private Key* di uno degli account ottenuti precedentemente sul terminele.
     - L'account #0 è il proprietario del contratto.
 
 **💻 Terminale 2: Deploy e Frontend della DApp**
