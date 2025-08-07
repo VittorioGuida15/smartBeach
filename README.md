@@ -12,6 +12,7 @@
 - Smart contract gestito tramite Hardhat
 - Server meteo con ESP32 + MQTT
 - Interfaccia frontend con HTML/JavaScript
+- Hosting del frontend e intallazione dipendenze con Node.js
 
 ## 📁 Struttura del progetto
 ```
