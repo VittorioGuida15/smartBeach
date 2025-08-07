@@ -7,7 +7,7 @@
 - Prenotazione postazioni tramite wallet MetaMask
 - Pagamento in ETH (Ethereum)
 - Mappa postazioni in tempo reale
-- Rimborso automatico in caso di maltempo (rilevato da ESP32)
+- Rimborso automatico in caso di maltempo rilevato da un ESP32 con sensori DHT22 (temperatura e umidità) e sensore di pioggia.
 - Annullamento manuale senza rimborso se non piove
 - Smart contract gestito tramite Hardhat
 - Server meteo con ESP32 + MQTT + Node.js
@@ -129,9 +129,9 @@ Questo terminale, avvia il server meteo, scegliendo una delle due opzioni dispon
   
 - **Prenotazione**: L'utente seleziona una postazione e avvia la transazione per la prenotazione tramite la funzione *prenotaPostazione()*. Il pagamento avviene in ETH e l'utente conferma l'operazione con MetaMask.
   
-- **Sistema Meteo e Rimborso**: La DApp interroga regolarmente l'endpoint del server meteo (http://localhost:3001/meteo). In caso di maltempo (pioggia o temperatura avversa), il server meteo, agendo per conto del proprietario del contratto (Account #0), esegue la funzione abilitaRimborsiPerMaltempo() sullo smart contract. Questo attiva la possibilità di rimborso per quel giorno.
+- **Sistema Meteo e Rimborso**: La DApp interroga regolarmente l'endpoint del server meteo (http://localhost:3001/meteo). Il server meteo riceve i dati dall'ESP32 via MQTT e in caso di maltempo (pioggia o temperatura avversa) agisce per conto del proprietario del contratto (Account #0), per eseguire la funzione *abilitaRimborsiPerMaltempo()* sullo smart contract. Questo attiva la possibilità di rimborso per quel giorno.
   
-- **Cancellazione della Prenotazione**: L'utente può decidere di cancellare la sua prenotazione:
+- **Cancellazione della Prenotazione**: L'utente può decidere di cancellare la sua prenotazione, tramite la funzione *cancellaPostazione()*:
     - Se piove: ottiene un rimborso (meno le gas fee).
     - Se non piove: la cancellazione non comporta rimborso.
       
