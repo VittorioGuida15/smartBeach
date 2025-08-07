@@ -14,6 +14,13 @@
 - Interfaccia frontend con HTML/JavaScript
 - Hosting del frontend e intallazione dipendenze con Node.js
 
+## 🛠️ Requisiti hardware: 
+- ESP32 
+- Sensore DHT22 (temperatura e umidità)
+- Sensore di pioggia.
+
+*Possibilità di simulare il meteo senza i sensori*.
+
 ## 📁 Struttura del progetto
 ```
 smartBeach/
@@ -111,13 +118,15 @@ La DApp sarà ora disponibile all'indirizzo http://localhost:3000.
 
 Questo terminale, avvia il server meteo, scegliendo una delle due opzioni disponibili:
 - Opzione 1: Meteo Reale 
-    - Requisiti hardware: ESP32 con sensore DHT22 (temperatura e umidità) e sensore di pioggia.
+
+  **Requisiti hardware:** ESP32 con sensore DHT22 (temperatura e umidità) e sensore di pioggia.
     ```
     cd smartBeach/smartWeatherNode
     node server.js
     ```
 - Opzione 2: Simulazione del Meteo
-    Senza il ESP32, avvia il server di simulazione.
+
+  Senza il ESP32, avvia il server di simulazione.
     ```
     cd smartBeach/smartWeatherNode
     node serverSimulato.js
