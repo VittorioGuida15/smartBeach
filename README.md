@@ -83,6 +83,7 @@ Inoltre saranno mostrati 20 account con 10000 ETH e relativa *Private Key* da po
 - **Per aggiungere la rete Hardhat a MetaMask:**
 
   *Select a network* > *Add a custom network*
+
   Inserire i seguenti dati:
     - Nome Rete: Hardhat
     - Default RPC URL: http://127.0.0.1:8545/
