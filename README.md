@@ -14,3 +14,14 @@
 - Interfaccia frontend con HTML/JavaScript
 
 ## 📁 Struttura del progetto
+smartBeach/
+├── stabilimento-dapp/ → DApp
+│ ├── artefact/
+│ ├── cache
+│ ├── contracts/ → smart contract
+│ ├── scripts/
+│ ├── frontend/ → HTML + JS + interfaccia utente
+│ └── hardhat.config.js
+├── smartWeatherNode/ → Server meteo MQTT (ESP32 o simulazione)
+│ ├── server.js → Versione reale con sensori
+│ ├── serverSimulato.js → Simulatore meteo via HTTP
