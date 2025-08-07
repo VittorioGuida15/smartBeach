@@ -50,7 +50,35 @@ smartBeach/
 ```
 
 ## ⚙️ Setup del progetto
-Per avviare il progetto, avrai bisogno di tre terminali separati. Assicurati di avere installato:
+Assicurati di avere installato:
 - [Node.js](https://nodejs.org/)
-- [Hardhat](https://hardhat.org/)
 - [MetaMask](https://metamask.io/)
+
+## 🔧 Installazione dipendenze
+Apri un terminale e installa le dipendenze per la DApp.
+```
+cd .\smartBeach\stabilimento-dapp\
+npm install
+```
+Installa le dipendenze per il server meteo.
+```
+cd .\smartBeach\stabilimento-dapp\
+npm install
+```
+## 🚀 Avvio del Progetto
+Per avviare il progetto, avrai bisogno di tre terminali separati.
+
+**💻 Terminale 1: Avvio della Rete Blockchain Locale**
+Questo terminale avvierà la blockchain locale di Ethereum
+```
+cd .\smartBeach\stabilimento-dapp\
+npx hardhat node
+```
+**💻 Terminale 2: Deploy e Frontend della DApp**
+Questo terminale esegue il deploy dello smart contract e lanciando l'interfaccia utente.
+```
+cd .\smartBeach\stabilimento-dapp\
+npx hardhat run scripts/deploy.js --network localhost
+npx serve
+```
+La DApp sarà ora disponibile all'indirizzo http://localhost:3000.
