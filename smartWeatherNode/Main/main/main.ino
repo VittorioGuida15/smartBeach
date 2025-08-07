@@ -5,7 +5,7 @@
 #include "secrets.h"
 
 // --- CONFIGURAZIONE (da modificare) ---
-#define DHTPIN 4 // Pin del sensore DHT22
+#define DHTPIN 14 // Pin del sensore DHT22
 #define RAIN_PIN 34 // Pin analogico del sensore pioggia
 // ------------------------------------------
 
