@@ -2,6 +2,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "ethers": "^5.8.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mqtt": "^5.14.0"
   }
 }
