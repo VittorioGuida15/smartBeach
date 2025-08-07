@@ -66,7 +66,7 @@ cd smartBeach/smartWeatherNode
 npm install
 ```
 
-## 🚀 Avvio del Progetto
+## 🚀 Avvio del progetto
 Per avviare il progetto, avrai bisogno di tre terminali separati.
 
 **💻 Terminale 1: Avvio della Rete Blockchain Locale**
@@ -126,7 +126,7 @@ Questo terminale, avvia il server meteo, scegliendo una delle due opzioni dispon
     - Temperatura: http://localhost:3001/set-meteo?temperature=22
     - Umidità: http://localhost:3001/set-meteo?humidity=75
 
-## 🧠 Flusso di Esecuzione
+## 🧠 Flusso di esecuzione
 - **Connessione e Visualizzazione**: L'utente accede alla DApp tramite MetaMask. Dopo aver scelto una data, la DApp interroga lo smart contract tramite la funzione *verificaDisponibilita()* per mostrare le postazioni libere e occupate.
   
 - **Prenotazione**: L'utente seleziona una postazione e avvia la transazione per la prenotazione tramite la funzione *prenotaPostazione()*. Il pagamento avviene in ETH e l'utente conferma l'operazione con MetaMask.
