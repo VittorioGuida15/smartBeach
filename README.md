@@ -69,12 +69,33 @@ npm install
 Per avviare il progetto, avrai bisogno di tre terminali separati.
 
 **💻 Terminale 1: Avvio della Rete Blockchain Locale**
-Questo terminale avvierà la blockchain locale di Ethereum
+
+Questo terminale avvierà la blockchain locale di Ethereum.
 ```
 cd smartBeach/stabilimento-dapp
 npx hardhat node
 ```
+La rete locale Hardhad va aggiunta a MetaMask.
+
+Inoltre saranno mostrati 20 account con 10000 ETH e relativa chiave privata da poter aggiungere a MetaMask per testare la dApp.
+
+- **Per aggiungere la rete Hardhat a MetaMask:**
+
+  Select a network > Add a custom network
+  Inserire i seguenti dati:
+    - Nome Rete: Hardhat
+    - Default RPC URL: http://127.0.0.1:8545/
+    - Chain ID: 31337
+    - Simbolo moneta: ETH
+
+- **Per aggiungere gli account a MetaMask:**
+
+  Account > Add account or hardware wallet > Private Key
+    - Incollare la Private Key di uno degli account ottenuti precedentemente sul terminele.
+    - L'account #0 è il proprietario del contratto.
+
 **💻 Terminale 2: Deploy e Frontend della DApp**
+
 Questo terminale esegue il deploy dello smart contract e lanciando l'interfaccia utente.
 ```
 cd smartBeach/stabilimento-dapp
@@ -84,6 +105,7 @@ npx serve
 La DApp sarà ora disponibile all'indirizzo http://localhost:3000.
 
 **💻 Terminale 3: Server Meteo**
+
 Questo terminale, avvia il server meteo, scegliendo una delle due opzioni disponibili:
 - Opzione 1: Meteo Reale (con ESP32)
     Utilizza questa opzione se hai un ESP32 connesso che invia i dati.
@@ -101,3 +123,16 @@ Questo terminale, avvia il server meteo, scegliendo una delle due opzioni dispon
     - Pioggia: http://localhost:3001/set-meteo?rain=1
     - Temperatura: http://localhost:3001/set-meteo?temperature=22
     - Umidità: http://localhost:3001/set-meteo?humidity=75
+
+## 🧠 Flusso di esecuzione
+- **Connessione e Visualizzazione**: L'utente accede alla DApp tramite MetaMask. Dopo aver scelto una data, la DApp interroga lo smart contract tramite la funzione *verificaDisponibilita()* per mostrare le postazioni libere e occupate.
+  
+- **Prenotazione**: L'utente seleziona una postazione e avvia la transazione per la prenotazione tramite la funzione *prenotaPostazione()*. Il pagamento avviene in ETH e l'utente conferma l'operazione con MetaMask.
+  
+- **Sistema Meteo e Rimborso**: La DApp interroga regolarmente l'endpoint del server meteo (http://localhost:3001/meteo). In caso di maltempo (pioggia o temperatura avversa), il server meteo, agendo per conto del proprietario del contratto (Account #0), esegue la funzione abilitaRimborsiPerMaltempo() sullo smart contract. Questo attiva la possibilità di rimborso per quel giorno.
+  
+- **Cancellazione della Prenotazione**: L'utente può decidere di cancellare la sua prenotazione:
+    - Se piove: ottiene un rimborso (meno le gas fee).
+    - Se non piove: la cancellazione non comporta rimborso.
+      
+- **Gestione del Proprietario**: Il proprietario del contratto può cancellare qualsiasi prenotazione.
