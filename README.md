@@ -57,12 +57,12 @@ Assicurati di avere installato:
 ## 🔧 Installazione dipendenze
 Apri un terminale e installa le dipendenze per la DApp.
 ```
-cd .\smartBeach\stabilimento-dapp\
+cd smartBeach/stabilimento-dapp
 npm install
 ```
 Installa le dipendenze per il server meteo.
 ```
-cd .\smartBeach\stabilimento-dapp\
+cd smartBeach/smartWeatherNode
 npm install
 ```
 ## 🚀 Avvio del Progetto
@@ -71,14 +71,33 @@ Per avviare il progetto, avrai bisogno di tre terminali separati.
 **💻 Terminale 1: Avvio della Rete Blockchain Locale**
 Questo terminale avvierà la blockchain locale di Ethereum
 ```
-cd .\smartBeach\stabilimento-dapp\
+cd smartBeach/stabilimento-dapp
 npx hardhat node
 ```
 **💻 Terminale 2: Deploy e Frontend della DApp**
 Questo terminale esegue il deploy dello smart contract e lanciando l'interfaccia utente.
 ```
-cd .\smartBeach\stabilimento-dapp\
+cd smartBeach/stabilimento-dapp
 npx hardhat run scripts/deploy.js --network localhost
 npx serve
 ```
 La DApp sarà ora disponibile all'indirizzo http://localhost:3000.
+
+**💻 Terminale 3: Server Meteo**
+Questo terminale, avvia il server meteo, scegliendo una delle due opzioni disponibili:
+- Opzione 1: Meteo Reale (con ESP32)
+    Utilizza questa opzione se hai un ESP32 connesso che invia i dati.
+    ```
+    cd smartBeach/smartWeatherNode
+    node server.js
+    ```
+- Opzione 2: Simulazione del Meteo (senza ESP32)
+    Senza il sensore, avvia il server di simulazione.
+    ```
+    cd smartBeach/smartWeatherNode
+    node serverSimulato.js
+    ```
+    In modalità di simulazione, puoi modificare le condizioni meteo visitando questi URL nel tuo browser:
+    - Pioggia: http://localhost:3001/set-meteo?rain=1
+    - Temperatura: http://localhost:3001/set-meteo?temperature=22
+    - Umidità: http://localhost:3001/set-meteo?humidity=75
