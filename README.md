@@ -48,3 +48,9 @@ smartBeach/
     ├── server.js               → Server che riceve i dati meteo reali da ESP32 (via MQTT)
     └── serverSimulato.js       → Server che simula i dati meteo
 ```
+
+## ⚙️ Setup del progetto
+Per avviare il progetto, avrai bisogno di tre terminali separati. Assicurati di avere installato:
+- [Node.js](https://nodejs.org/)
+- [Hardhat](https://hardhat.org/)
+- [MetaMask](https://metamask.io/)
