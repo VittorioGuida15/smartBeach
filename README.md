@@ -1,29 +1,16 @@
-**Terminale 1:**
-  > cd .\smartBeach\stabilimento-dapp\
+# 🌴 SmartBeach – dApp per Prenotazione Balneare su Blockchain
 
-  > npx hardhat node
+**SmartBeach** è una dApp decentralizzata per prenotare postazioni in stabilimenti balneari. Utilizzando la blockchain **Ethereum**, il progetto offre un sistema di prenotazione trasparente e sicuro. La caratteristica distintiva di SmartBeach è il suo sistema di rimborso in caso di maltempo, garantendo agli utenti la sicurezza di non perdere denaro per una giornata di spiaggia rovinata dalla pioggia.
 
-  cose da installare: npm install e node.js
-  > npm install --save-dev hardhat
+## 🚀 Funzionalità principali
 
-**Terminale 2:**
-  > cd .\smartBeach\stabilimento-dapp\
+- Prenotazione postazioni tramite wallet MetaMask
+- Pagamento in ETH (Ethereum)
+- Mappa postazioni in tempo reale
+- Rimborso automatico in caso di maltempo (rilevato da ESP32)
+- Annullamento manuale senza rimborso se non piove
+- Smart contract gestito tramite Hardhat
+- Server meteo con ESP32 + MQTT + Node.js
+- Interfaccia frontend con HTML/JavaScript
 
-  > npx hardhat run scripts/deploy.js --network localhost
-
-  > npx serve
-
-**Terminale 3:**
-  > cd .\smartBeach\smartWeatherNode\
-  
-  > node server.js
-
-  cose da installare: install express e node.js
-  > npm init -y
-  
-  > npm install express
-
-**Per collegamento meteo:**
-  > cd .\smartBeach\smartWeatherNode\
-  
-  > npm install mqtt.
+## 📁 Struttura del progetto
