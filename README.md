@@ -10,7 +10,7 @@
 - Rimborso automatico in caso di maltempo rilevato da un ESP32 con sensori DHT22 (temperatura e umidità) e sensore di pioggia.
 - Annullamento manuale senza rimborso se non piove
 - Smart contract gestito tramite Hardhat
-- Server meteo con ESP32 + MQTT
+- Meteo in tempo reale con ESP32 + MQTT + Node.js
 - Interfaccia frontend con HTML/JavaScript
 - Hosting del frontend e intallazione dipendenze con Node.js
 
