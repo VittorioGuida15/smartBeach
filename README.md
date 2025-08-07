@@ -81,7 +81,7 @@ Inoltre saranno mostrati 20 account con 10000 ETH e relativa chiave privata da p
 
 - **Per aggiungere la rete Hardhat a MetaMask:**
 
-  Select a network > Add a custom network
+  *Select a network* > *Add a custom network*
   Inserire i seguenti dati:
     - Nome Rete: Hardhat
     - Default RPC URL: http://127.0.0.1:8545/
@@ -90,7 +90,7 @@ Inoltre saranno mostrati 20 account con 10000 ETH e relativa chiave privata da p
 
 - **Per aggiungere gli account a MetaMask:**
 
-  Account > Add account or hardware wallet > Private Key
+  *Account* > *Add account or hardware wallet* > *Private Key*
     - Incollare la Private Key di uno degli account ottenuti precedentemente sul terminele.
     - L'account #0 è il proprietario del contratto.
 
