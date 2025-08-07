@@ -34,7 +34,7 @@ smartBeach/
 │   ├── app.js                  → Server Node.js che gestisce e serve la DApp frontend
 │   ├── hardhat.config.js       → File di configurazione di Hardhat
 │   ├── index.html              → Pagina HTML principale della DApp (frontend)
-│   ├── package.json            → Dipendenze del progetto (Hardhat, Node.js)
+│   ├── package.json            → Dipendenze del progetto (hardhat e serve)
 │   └── package-lock.json       → File di lock delle dipendenze (assicura la coerenza delle dipendenze)
 │  
 │   
@@ -44,7 +44,7 @@ smartBeach/
     │     └── secret.exemple.h  → File esempio per configurazione Wi-Fi ESP32 
     │ 
     ├── package-lock.json       → File di lock delle dipendenze
-    ├── package.json            → Dipendenze del server meteo (Express, MQTT)
+    ├── package.json            → Dipendenze del server meteo (cors, ethers, express e mqtt)
     ├── server.js               → Server che riceve i dati meteo reali da ESP32 (via MQTT)
     └── serverSimulato.js       → Server che simula i dati meteo
 ```
