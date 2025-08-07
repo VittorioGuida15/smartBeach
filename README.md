@@ -2,7 +2,7 @@
 
 **SmartBeach** è una dApp decentralizzata per prenotare postazioni in stabilimenti balneari. Utilizzando la blockchain **Ethereum**, il progetto offre un sistema di prenotazione trasparente e sicuro. La caratteristica distintiva di SmartBeach è il suo sistema di rimborso in caso di maltempo, garantendo agli utenti la sicurezza di non perdere denaro per una giornata di spiaggia rovinata dalla pioggia.
 
-## 🚀 Funzionalità principali
+## 🧩 Funzionalità principali
 
 - Prenotazione postazioni tramite wallet MetaMask
 - Pagamento in ETH (Ethereum)
@@ -124,7 +124,7 @@ Questo terminale, avvia il server meteo, scegliendo una delle due opzioni dispon
     - Temperatura: http://localhost:3001/set-meteo?temperature=22
     - Umidità: http://localhost:3001/set-meteo?humidity=75
 
-## 🧠 Flusso di esecuzione
+## 🧠 Flusso di Esecuzione
 - **Connessione e Visualizzazione**: L'utente accede alla DApp tramite MetaMask. Dopo aver scelto una data, la DApp interroga lo smart contract tramite la funzione *verificaDisponibilita()* per mostrare le postazioni libere e occupate.
   
 - **Prenotazione**: L'utente seleziona una postazione e avvia la transazione per la prenotazione tramite la funzione *prenotaPostazione()*. Il pagamento avviene in ETH e l'utente conferma l'operazione con MetaMask.
