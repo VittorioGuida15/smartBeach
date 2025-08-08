@@ -7,7 +7,7 @@
 - Prenotazione postazioni tramite wallet MetaMask
 - Pagamento in ETH (Ethereum)
 - Mappa postazioni aggiormata in tempo reale
-- Rimborso in caso di maltempo rilevato da un ESP32 con sensori DHT22 (temperatura e umidità) e sensore di pioggia.
+- Rimborso in caso di maltempo rilevato da un ESP32 con sensori DHT22 (temperatura e umidità) e sensore di pioggia
 - Annullamento senza rimborso se non piove
 - Smart contract gestito tramite Hardhat
 - Meteo in tempo reale con ESP32 + MQTT + Node.js
