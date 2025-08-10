@@ -65,7 +65,7 @@ Assicurati di avere installato:
 -  **Clona il repository**
 
    ```
-   git clone https://github.com/VittorioGuida15/smartBeach
+   git clone https://github.com/VittorioGuida15/smartBeach.git
    ```
 
 ## 🔧 Installazione dipendenze
