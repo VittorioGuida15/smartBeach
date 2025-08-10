@@ -62,6 +62,12 @@ Assicurati di avere installato:
 - [Node.js](https://nodejs.org/)
 - [MetaMask](https://metamask.io/)
 
+-  **Clona il repository**
+
+   ```
+   git clone https://github.com/VittorioGuida15/smartBeach
+   ```
+
 ## 🔧 Installazione dipendenze
 Apri un terminale e installa le dipendenze per la DApp.
 ```
